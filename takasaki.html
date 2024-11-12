@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高崎電気館について</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* スライダーコンテナ */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        /* スライド */
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 98%;
+        }
+
+        .slides img {
+            width: 100%;
+            object-fit: cover;
+        }
+
+        
+
+        /* テキスト */
+        .description {
+            margin: 20px auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>高崎電気館の詳細</h1>
+    
+    <!-- スライダー -->
+    <div class="slider-container" id="sliderContainer">
+        <div class="slides" id="slides">
+            <img src="images/takasaki1.jpg" alt="高崎電気館画像1">
+            <img src="images/takasaki2.jpg" alt="高崎電気館画像2">
+        </div>
+        
+    </div>
+
+    <!-- テキスト -->
+    <div class="description">
+        <p>高崎電気館は群馬県の高崎駅にある映画館</p>
+        <p>池袋から電車で90分くらい、、</p>
+        <p>レトロな感じがめっちゃいい電車で90分くらい、、、</p>
+        <p>お金は全部出す。13時5分から上映。</p>
+    </div>
+
+    <!-- トップページへのリンク -->
+    <a href="index.html">戻る</a>
+
+    <script>
+        const slides = document.getElementById('slides');
+        const totalSlides = slides.children.length;
+        let currentIndex = 0;
+
+
+        // タッチスワイプ操作
+        let startX = 0;
+        let currentX = 0;
+
+        const sliderContainer = document.getElementById('sliderContainer');
+
+        sliderContainer.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        sliderContainer.addEventListener('touchmove', (e) => {
+            currentX = e.touches[0].clientX;
+        });
+
+        sliderContainer.addEventListener('touchend', () => {
+            const diffX = startX - currentX;
+            if (Math.abs(diffX) > 50) { // スワイプを検知
+                if (diffX > 0) {
+                    // 左スワイプ（次へ）
+                    currentIndex = (currentIndex + 1) % totalSlides;
+                } else {
+                    // 右スワイプ（前へ）
+                    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                }
+                updateSlidePosition();
+            }
+        });
+
+        // スライド位置を更新
+        function updateSlidePosition() {
+            slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+    </script>
+</body>
+</html>

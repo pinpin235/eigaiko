@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>映画の誘い</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>
+        11月16日の土曜日
+        <a href="takasaki.html">高崎電気館</a>へ
+        <a href="movie.html">映画</a>を観に行きませんか。
+    </h1>
+    <p></p>
+    
+    <!-- ボタン -->
+    <button id="yesButton">ちょんごり行ったってもいいかも</button>
+    <button id="noButton">予定がある</button>
+
+    <p id="result" style="margin-top: 20px;"></p>
+
+    <script>
+        // クエリパラメータを取得
+        const params = new URLSearchParams(window.location.search);
+        const result = params.get('result');
+
+        // 結果を表示
+        const resultParagraph = document.getElementById('result');
+        if (result === 'yes') {
+            resultParagraph.textContent = "「行く」と答えました。";
+        } else if (result === 'no') {
+            resultParagraph.textContent = "「行かない」と答えました。";
+        }
+
+        // ボタンのイベントリスナー
+        document.getElementById('yesButton').addEventListener('click', () => {
+            // クエリパラメータを更新
+            const newUrl = `${window.location.pathname}?result=yes`;
+            window.location.href = newUrl;
+        });
+
+        document.getElementById('noButton').addEventListener('click', () => {
+            // クエリパラメータを更新
+            const newUrl = `${window.location.pathname}?result=no`;
+            window.location.href = newUrl;
+        });
+    </script>
+</body>
+</html>
